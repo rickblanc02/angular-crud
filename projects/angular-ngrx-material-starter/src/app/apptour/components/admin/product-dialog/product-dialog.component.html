@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>{{descripcion}}: {{name}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+
+        <input matInput
+                placeholder="Nombre"
+               formControlName="name">
+
+    </mat-form-field>
+  
+    <mat-form-field>
+
+        <input matInput
+                placeholder="Cantidad"
+               formControlName="count">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+        <input matInput
+                placeholder="Cost"
+               formControlName="cost">
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+
+        <input matInput [matDatepicker]="myDatepicker"
+            formControlName="date_start">
+
+        <mat-datepicker-toggle matSuffix
+                               [for]="myDatepicker">
+
+        </mat-datepicker-toggle>
+
+        <mat-datepicker #myDatepicker></mat-datepicker>
+
+    </mat-form-field>
+
+   
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button>
+    
+   <button disabled class="mat-raised-button"
+            (click)="save()">
+        Save
+    </button>
+
+</mat-dialog-actions>
+

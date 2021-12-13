@@ -1,0 +1,146 @@
+<div class="background" rtl>
+  <div class="gradient">
+          
+    <div class="container">
+
+      <h1>Inventario </h1>
+      
+
+        <div class="col-md-12">
+            <h2>Productos </h2>
+                     
+
+            <div *ngIf="loading"> 
+              <mat-spinner class="center"></mat-spinner>
+            </div>
+           
+            <ng-container #table>
+            
+              <mat-paginator
+              [pageSizeOptions]="[5, 10, 15, 20, 30]"
+              showFirstLastButtons
+              (page)="pageChanged($event)">
+            </mat-paginator>
+
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="name" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+              
+                <!-- Count Column -->
+                <ng-container matColumnDef="count">
+                  <th mat-header-cell *matHeaderCellDef> Count </th>
+                  <td mat-cell *matCellDef="let element"> {{element.count}} </td>
+                </ng-container>
+              
+                <!-- Date start Column -->
+                <ng-container matColumnDef="date_start">
+                  <th mat-header-cell *matHeaderCellDef> Date start </th>
+                  <td mat-cell *matCellDef="let element"> {{element.date_start}} </td>
+                </ng-container>
+              
+                <!-- Prize Column -->
+                <ng-container matColumnDef="prize">
+                  <th mat-header-cell *matHeaderCellDef> Prize </th>
+                  <td mat-cell *matCellDef="let element"> {{element.prize}} </td>
+                </ng-container>
+
+                 <!-- Gain Column -->
+                 <ng-container matColumnDef="gain">
+                  <th mat-header-cell *matHeaderCellDef> Gain to Sales </th>
+                  <td mat-cell *matCellDef="let element"> {{element.gain}} </td>
+                </ng-container>
+
+                 <!-- Total prize Column -->
+                 <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef> Total Prize </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                </ng-container>
+
+                 <!-- type Column -->
+                 <ng-container matColumnDef="tipo">
+                  <th mat-header-cell *matHeaderCellDef> Type gain </th>
+                  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                </ng-container>
+
+                 <!-- Iva Column -->
+                 <ng-container matColumnDef="iva">
+                  <th mat-header-cell *matHeaderCellDef> Iva </th>
+                  <td mat-cell *matCellDef="let element"> {{element.iva}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef> Details </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
+                      <fa-icon icon="bars">details</fa-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="update">
+                    <th mat-header-cell *matHeaderCellDef> Update </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button color="accent" (click)="redirectToUpdate(element)">
+                        <fa-icon icon="edit">update</fa-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef> Delete </th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                            
+                            <fa-icon icon="trash">delete</fa-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              
+
+            </ng-container>
+
+            <!-- Section upload files cvs-->
+            <mat-card id="box1">
+              <div mode="buffer" *ngFor="let progress of progressInfo">
+                  <span>{{progress.fileName}}</span>
+                  <span>{{progress.value}}%</span>
+                  <div id="progressbar">
+                      <mat-progress-bar mode="buffer" value={{progress.value}}>
+                      </mat-progress-bar>
+                  </div>
+              </div>
+          </mat-card>
+      
+          <div id="box2">
+              <button id="selectButton" mat-raised-button (click)="fileInput.click()">Select File to Upload</button>
+      
+              <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" />
+              
+      
+              <button id="uploadButton" mat-raised-button *ngIf="selectedFiles" [disabled]="!selectedFiles" (click)="uploadFiles()">
+                  Subir Archivos
+              </button>
+          </div> 
+
+          <div id="box3">
+            <span>{{message}}</span>
+        </div>
+
+         <!-- end  section upload files-->
+
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
